@@ -1,3 +1,5 @@
 node_modules
 .DS_Store
 .env
+code-snapshots/starting-project/.vscode/settings.json
+.codex/environments/environment.toml
