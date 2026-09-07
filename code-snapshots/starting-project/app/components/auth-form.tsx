@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { authClient } from "@/lib/auth-client";
 
 type AuthFormProps = {
   mode: "login" | "register";
@@ -9,14 +10,44 @@ type AuthFormProps = {
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
   const isRegister = mode === "register";
   const title = isRegister ? "Create your account" : "Welcome back";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // Connect to authentication when the server integration is added.
-    // Never allow the browser to submit credentials in a URL.
-    setError("Authentication is not available yet. Please try again later.");
+    if (pending) return;
+    const data = new FormData(event.currentTarget);
+    const email = String(data.get("email") ?? "").trim();
+    const password = String(data.get("password") ?? "");
+    const name = String(data.get("name") ?? "").trim();
+    setError("");
+    if (isRegister && !name) {
+      setError("Please enter your name.");
+      return;
+    }
+    setPending(true);
+    try {
+      const result = isRegister
+        ? await authClient.signUp.email({ name, email, password })
+        : await authClient.signIn.email({ email, password });
+      if (result.error) {
+        setError(
+          result.error.status === 429
+            ? "Too many attempts. Please try again later."
+            : isRegister
+              ? "Unable to create an account. Check your details or try logging in."
+              : "Unable to log in. Check your email and password.",
+        );
+        setPending(false);
+        return;
+      }
+      // A full navigation discards any pages cached before authentication.
+      window.location.assign("/notes");
+    } catch {
+      setError("Unable to connect. Please try again.");
+      setPending(false);
+    }
   }
 
   return (
@@ -33,7 +64,22 @@ export default function AuthForm({ mode }: AuthFormProps) {
           {isRegister ? "A little space for your ideas." : "Log in to return to your notes."}
         </p>
 
-        <form method="post" onSubmit={handleSubmit} className="mt-8 space-y-5">
+        <form method="post" onSubmit={handleSubmit} aria-busy={pending} className="mt-8 space-y-5">
+          {isRegister && (
+            <div>
+              <label htmlFor="name" className="mb-2 block text-sm font-medium">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                autoComplete="name"
+                required
+                maxLength={100}
+                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-none focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
+              />
+            </div>
+          )}
           <div>
             <label htmlFor="email" className="mb-2 block text-sm font-medium">
               Email
@@ -60,6 +106,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               type="password"
               autoComplete={isRegister ? "new-password" : "current-password"}
               minLength={isRegister ? 8 : undefined}
+              maxLength={128}
               required
               aria-describedby={isRegister ? "password-hint" : undefined}
               className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-none focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
@@ -82,9 +129,16 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-teal-300 px-4 py-3 font-semibold text-slate-950 transition-colors hover:bg-teal-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-300"
+            disabled={pending}
+            className="w-full rounded-lg bg-teal-300 px-4 py-3 font-semibold text-slate-950 transition-colors hover:bg-teal-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-300 disabled:cursor-wait disabled:opacity-60"
           >
-            {isRegister ? "Create account" : "Log in"}
+            {pending
+              ? isRegister
+                ? "Creating account…"
+                : "Logging in…"
+              : isRegister
+                ? "Create account"
+                : "Log in"}
           </button>
         </form>
 

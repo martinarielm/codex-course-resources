@@ -7,6 +7,7 @@
     "build": "bun run --bun next build",
     "start": "bun run --bun next start",
     "lint": "oxlint",
+    "test:auth": "bun --conditions=react-server test lib/auth.test.ts",
     "format": "oxfmt",
     "migrate": "bun scripts/migrate.ts up",
     "migrate:up": "bun scripts/migrate.ts up",
@@ -14,9 +15,11 @@
     "migrate:status": "bun scripts/migrate.ts status"
   },
   "dependencies": {
+    "better-auth": "^1.7.3",
     "next": "16.1.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

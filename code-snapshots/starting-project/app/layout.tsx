@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getSession } from "@/lib/session";
+import SignOutButton from "@/app/components/sign-out-button";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,11 +12,12 @@ export const metadata: Metadata = {
   description: "Write, organize, and share notes without the clutter.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
   return (
     <html lang="en">
       <body className="min-h-screen bg-slate-50 text-slate-950 antialiased">
@@ -34,18 +37,32 @@ export default function RootLayout({
             </Link>
 
             <nav aria-label="Primary navigation" className="flex items-center gap-2 sm:gap-4">
-              <Link
-                href="/login"
-                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-teal-50 hover:text-teal-800"
-              >
-                Log in
-              </Link>
-              <Link
-                href="/register"
-                className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-teal-700"
-              >
-                Get started
-              </Link>
+              {session ? (
+                <>
+                  <Link
+                    href="/notes"
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-teal-800"
+                  >
+                    My notes
+                  </Link>
+                  <SignOutButton />
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-teal-50 hover:text-teal-800"
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-teal-700"
+                  >
+                    Get started
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         </header>
