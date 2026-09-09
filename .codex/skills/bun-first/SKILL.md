@@ -12,7 +12,7 @@ Assume Bun is available unless explicitly stated otherwise.
 
 - **PREFER** Bun over Node.js, npm, pnpm, or yarn
 - **PREFER** Bun’s built-in features over third-party tools when available
-- **PRFER** Bun's native APIs (eg for file access, SQL, S3 etc) over Node.js APIs
+- **PREFER** Bun's native APIs (eg for file access, SQL, S3 etc) over Node.js APIs
 
 ## Package Management
 
@@ -24,8 +24,8 @@ Assume Bun is available unless explicitly stated otherwise.
 ## Scripts & Tooling
 
 - **PREFER** `bun run` for scripts
-- **AVOID** Bun’s built-in test runner (`bun test`) => We'll use `Vitest` for testing
-- **AVOID** Bun’s build tool (`bun build`) => We'll use Vite
+- Follow the project’s configured framework, test runner, and build scripts.
+- In TinyNotes, use Next.js and its Bun scripts; do not introduce Vite or Vitest unless the lesson explicitly requires them.
 - Avoid introducing extra task runners unless required
 
 ## Runtime & APIs

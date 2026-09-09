@@ -22,7 +22,8 @@ clarity, correctness, and maintainability.
 - **AVOID** `useEffect()`
   - See the ["You Might Not Need An Effect" guide](references/you-dont-need-useeffect.md) for detailed guidance
   - **PREFER** deriving values during render instead of synchronizing state
-  - Fetch data via TanStack Query (`@tanstack/react-query`)
+  - In Next.js App Router projects, read initial page data in Server Components and perform mutations with Server Actions.
+  - Use client-side data fetching only when client state requires it, such as for client-only browser APIs or frequently polled data.
 - **AVOID** unnecessary `useState()` or `useReducer()` usage
   - Derive state from props or other state when possible
   - Localize state to the lowest possible component
