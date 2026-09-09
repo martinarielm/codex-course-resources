@@ -51,7 +51,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4 py-12 text-slate-100">
+    <main className="flex flex-1 items-center justify-center bg-slate-950 px-4 py-12 text-slate-100">
       <section
         aria-labelledby="auth-title"
         className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8"
@@ -76,7 +76,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 autoComplete="name"
                 required
                 maxLength={100}
-                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-none focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
+                className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-hidden focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
               />
             </div>
           )}
@@ -92,7 +92,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               autoCapitalize="none"
               spellCheck={false}
               required
-              className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-none focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
+              className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-hidden focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
             />
           </div>
 
@@ -109,7 +109,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               maxLength={128}
               required
               aria-describedby={isRegister ? "password-hint" : undefined}
-              className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-none focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
+              className="w-full rounded-lg border border-slate-600 bg-slate-950 px-3 py-2.5 text-base outline-hidden focus-visible:border-teal-300 focus-visible:ring-2 focus-visible:ring-teal-300"
             />
             {isRegister && (
               <p id="password-hint" className="mt-2 text-sm text-slate-400">
