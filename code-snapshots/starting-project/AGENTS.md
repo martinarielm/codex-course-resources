@@ -13,6 +13,11 @@ Use Bun; `bun.lock` is the authoritative lockfile.
 - `bun run build` creates a production build and checks integration.
 - `bun start` serves the completed production build.
 - `bun run lint` runs Oxlint.
+- `bun run test:unit` runs the Vitest unit suite once.
+- `bun run test:unit:watch` runs Vitest in watch mode.
+- `bun run test:e2e` runs the Playwright browser suite with an isolated test database.
+- `bun run test:e2e:ui` opens Playwright's interactive test runner.
+- `bun run test:auth` and `bun run test:notes` run the existing Bun integration suites.
 - `bun run format` formats supported files with Oxfmt.
 
 ## Coding Style & Naming Conventions
@@ -25,7 +30,15 @@ Treat this repository as a learner-owned exercise. Preserve existing work and in
 
 ## Testing Guidelines
 
-No automated test framework or coverage threshold is configured. Changes should pass `bun run lint` and `bun run build`, followed by focused browser verification. When adding tests, use `*.test.ts` or `*.test.tsx` and document the command. Prioritize authentication, ownership, sanitization, sharing, and migrations.
+Vitest and React Testing Library are configured for unit tests under `tests/unit/`; use
+`*.test.ts` or `*.test.tsx`. Playwright tests live under `tests/e2e/` and use `*.spec.ts`.
+The existing database integration tests in `lib/` use Bun's test runner and must remain
+separate from Vitest. Playwright starts Next.js automatically and uses an ignored SQLite
+database under `.test-data/`; install its Chromium runtime with
+`bunx playwright install chromium` when needed. No coverage threshold is configured.
+Changes should pass `bun run lint`, the relevant unit and integration suites,
+`bun run build`, and focused Playwright or browser verification. Prioritize authentication,
+ownership, validation, sanitization, sharing, migrations, and generic user-facing errors.
 
 ## Commit & Pull Request Guidelines
 
