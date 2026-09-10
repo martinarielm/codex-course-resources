@@ -8,6 +8,7 @@
     "start": "bun run --bun next start",
     "lint": "oxlint",
     "test:auth": "bun --conditions=react-server test lib/auth.test.ts",
+    "test:notes": "bun --conditions=react-server test lib/notes.test.ts",
     "format": "oxfmt",
     "migrate": "bun scripts/migrate.ts up",
     "migrate:up": "bun scripts/migrate.ts up",
@@ -15,6 +16,9 @@
     "migrate:status": "bun scripts/migrate.ts status"
   },
   "dependencies": {
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
     "better-auth": "^1.7.3",
     "next": "16.1.6",
     "react": "19.2.4",

@@ -1,1 +1,70 @@
 @import "tailwindcss";
+
+.tiptap {
+  min-height: 24rem;
+  color: var(--color-slate-800);
+  line-height: 1.75;
+  outline: none;
+}
+
+.tiptap > * + * {
+  margin-top: 0.75rem;
+}
+
+.tiptap h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.tiptap ul,
+.tiptap ol {
+  padding-left: 1.5rem;
+}
+
+.tiptap ul {
+  list-style: disc;
+}
+
+.tiptap ol {
+  list-style: decimal;
+}
+
+.tiptap blockquote {
+  border-left: 3px solid var(--color-teal-300);
+  color: var(--color-slate-600);
+  padding-left: 1rem;
+}
+
+.tiptap code {
+  border-radius: 0.25rem;
+  background: var(--color-slate-100);
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875em;
+}
+
+.tiptap pre {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  background: var(--color-slate-950);
+  color: var(--color-slate-100);
+  padding: 1rem;
+}
+
+.tiptap pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.tiptap a {
+  color: var(--color-teal-700);
+  text-decoration: underline;
+  text-decoration-color: var(--color-teal-300);
+  text-underline-offset: 0.2em;
+}
