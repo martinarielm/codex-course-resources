@@ -7,6 +7,11 @@
     "build": "bun run --bun next build",
     "start": "bun run --bun next start",
     "lint": "oxlint",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "test:auth": "bun --conditions=react-server test lib/auth.test.ts",
     "test:notes": "bun --conditions=react-server test lib/notes.test.ts",
     "format": "oxfmt",
@@ -26,17 +31,24 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.1.18",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.3",
     "@types/bun": "^1.4.0",
     "@types/node": "^25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.0.0",
     "eslint-config-next": "16.1.6",
+    "jsdom": "^30.0.1",
     "oxfmt": "^0.33.0",
     "oxlint": "^1.48.0",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^5.0.0"
   },
   "ignoreScripts": [
     "sharp",

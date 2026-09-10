@@ -39,9 +39,16 @@ Better Auth `/api/auth/get-session` endpoint can refresh sessions when called by
 
 ```sh
 bun run lint
+bun run test:unit
 bun run test:auth
 bun run build
+bun run test:e2e
 ```
+
+Vitest runs component unit tests from `tests/unit/`. Playwright runs browser tests from
+`tests/e2e/`, starts the Next.js development server automatically, and uses an isolated
+SQLite database under `.test-data/`. Install Chromium once with
+`bunx playwright install chromium` if it is not already available locally.
 
 Auth tests use a separate in-memory database created from `0001_init.sql`; they do
 not touch local users or notes. They cover password hashing, cookies, failed login,
